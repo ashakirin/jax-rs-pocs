@@ -1,0 +1,2 @@
+com.example.customerservice.listeners.CustomClientListener::true
+com.example.customerservice.listeners.CustomServiceListener::true

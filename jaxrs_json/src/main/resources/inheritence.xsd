@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://example.org"
+xmlns:tst="http://example.org"
+    elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+<xs:complexType name="Magazine" abstract="true">
+		<xs:sequence>
+			<xs:element name="Title" type="xs:string"/>
+			<xs:element name="Editor" type="xs:string"/>
+			<xs:element name="Type" type="tst:testEnum"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="WomensMagazine">
+		<xs:complexContent>
+			<xs:extension base="tst:Magazine">
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element name="CosmeticsAdvert" 
+					   type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:element name="test" type="tst:WomensMagazine" />
+
+<xs:simpleType name="testEnum">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="big"/>
+    <xs:enumeration value="large"/>
+    <xs:enumeration value="mungo"/>
+    <xs:enumeration value="gargantuan"/>
+  </xs:restriction>
+</xs:simpleType>
+
+</xs:schema>

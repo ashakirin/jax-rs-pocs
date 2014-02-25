@@ -1,0 +1,12 @@
+<bean id="bgacRSJsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+	<property name="dropRootElement" value="false" />
+	<property name="supportUnwrapped" value="true" />
+	<property name="ignoreNamespaces" value="true" />
+	<property name="schemaHandler" ref="schemaHolder" />
+	<property name="validateOutput" value="true" />
+	<bean id="schemaHolder" class="org.apache.cxf.jaxrs.utils.schemas.SchemaHandler">
+		<property name="schemas" ref="schemas" />
+	</bean>
+	<util:list id="schemas">
+		<value>classpath:webapi/xsd/schema.xsd</value>
+	</util:list>
