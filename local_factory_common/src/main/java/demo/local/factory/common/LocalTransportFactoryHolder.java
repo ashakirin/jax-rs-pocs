@@ -1,10 +1,8 @@
 package demo.local.factory.common;
 
 import org.apache.cxf.Bus;
-import org.apache.cxf.binding.soap.SoapTransportFactory;
 import org.apache.cxf.transport.ConduitInitiatorManager;
 import org.apache.cxf.transport.DestinationFactoryManager;
-import org.apache.cxf.transport.http.HTTPTransportFactory;
 import org.apache.cxf.transport.local.LocalConduit;
 import org.apache.cxf.transport.local.LocalTransportFactory;
 
@@ -29,11 +27,11 @@ public class LocalTransportFactoryHolder {
 		}
 		bus.setExtension(factory, LocalTransportFactory.class);
 		
-		initHttpFactories(bus);
+//		initHttpFactories(bus);
 	}
 	
-	private static void initHttpFactories(Bus bus) {
-		new SoapTransportFactory(bus);
-		new HTTPTransportFactory(bus);
-	}
+//	private static void initHttpFactories(Bus bus) {
+//		new SoapTransportFactory(bus);
+//		new HTTPTransportFactory(bus);
+//	}
 }

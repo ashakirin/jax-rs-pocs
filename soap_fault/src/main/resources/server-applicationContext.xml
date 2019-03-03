@@ -30,12 +30,9 @@
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
-         <!-- jaxws:inInterceptors>
+         <jaxws:inInterceptors>
              <bean class="com.example.customerservice.server.CustomInInterceptor"/>
-         </jaxws:inInterceptors-->
-         <!-- jaxws:outInterceptors>
-             <bean class="com.example.customerservice.server.CustomOutInterceptor"/>
-         </jaxws:outInterceptors-->
+         </jaxws:inInterceptors>
          <!-- jaxws:outFaultInterceptors>
              <bean class="com.example.customerservice.server.CustomSoapFaultInterceptor"/>
          </jaxws:outFaultInterceptors-->

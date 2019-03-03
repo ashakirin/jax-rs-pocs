@@ -18,18 +18,10 @@
  */
 package demo.jaxrs.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ws.rs.core.Response;
-
-import org.apache.cxf.jaxrs.client.WebClient;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import demo.jaxrs.server.Customer;
 import demo.jaxrs.server.CustomerService;
-import demo.jaxrs.server.data.PolicyTO;
-import demo.jaxrs.server.data.PolicyType;
 
 
 
@@ -40,31 +32,23 @@ public final class BasicSpringClient {
     }
 
     public static void main(String args[]) throws Exception {
-    	
         // Initialize the spring context and fetch our test client
         ClassPathXmlApplicationContext context 
             = new ClassPathXmlApplicationContext(new String[] {"classpath:client-applicationContext.xml"});
         CustomerService proxy = (CustomerService)context.getBean("restClient");
-
-        WebClient.getConfig(proxy).getRequestContext().put("TEST_CONTEXT_PROPERTY", "my test value");
         
-    	Customer customer = proxy.getCustomer("123");
-    	System.out.println("Customer id: " + customer.getId());
-
-//        List<PolicyTO> policies = (List<PolicyTO>)proxy.listByType(PolicyType.PASSWORD);
+        Customer customer = new Customer();
+        customer.setId(1);
+        customer.setName("test1");
+        
+        proxy.addCustomer(customer);
+        
+        Customer customerGet = proxy.getCustomer("123");
+        System.out.println(customerGet.getName());
+        
+//		List<PolicyTO> policies = (List<PolicyTO>)proxy.listByType(PolicyType.PASSWORD);
 //    	for (PolicyTO policy : policies) {
-//    		System.out.println("Policy: " + policy.getId());
-//    	}
-
-//		List<TaskTO> tasks = (List<TaskTO>)proxy.listTasks(TaskType.NOTIFICATION);
-//    	for (TaskTO task : tasks) {
-//    		System.out.println("Listed Policy: " + task.getClass());
-//    	}
-
-
-//    	List<AbstractSchemaTO> schemas = (List<AbstractSchemaTO>)proxy.listSchemas(AttributableType.ROLE, SchemaType.Boolean);
-//    	for (AbstractSchemaTO schema : schemas) {
-//    		System.out.println(schema.getName());
+//    		System.out.println("Listed Policy: " + policy.getClass());
 //    	}
     }
 }

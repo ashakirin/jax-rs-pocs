@@ -30,9 +30,7 @@ import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
-import demo.jaxrs.server.Customer;
 import demo.jaxrs.server.CustomerService;
 import demo.jaxrs.server.data.PasswordPolicyTO;
 import demo.jaxrs.server.data.PolicyTO;
@@ -48,7 +46,7 @@ public final class Client {
 //    	marshal();
 
         List<Object> providers = new ArrayList<Object>();
-        providers.add( new JacksonJaxbJsonProvider() );
+//        providers.add( new JacksonJaxbJsonProvider() );
 //        providers.add(new CustomExceptionMapper());
         
         CustomerService service = JAXRSClientFactory.create("http://localhost:9001/", CustomerService.class, providers);

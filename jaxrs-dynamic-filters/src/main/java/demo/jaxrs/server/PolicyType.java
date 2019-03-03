@@ -16,28 +16,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package demo.jaxrs.server.data;
+package demo.jaxrs.server;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "abstractSchema")
-@XmlType
-@XmlSeeAlso({SchemaTO.class, DerivedSchemaTO.class, VirtualSchemaTO.class})
-//@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
-public abstract class AbstractSchemaTO extends AbstractBaseBean {
+@XmlType(name = "PolicyType")
+@XmlEnum
+public enum PolicyType {
 
-    private static final long serialVersionUID = 4088388951694301759L;
+    /**
+     * Account policy like:
+     * password expire time, change password at first access, ...
+     */
+    ACCOUNT("Account Policy"),
+    GLOBAL_ACCOUNT("Account Global Policy"),
+    /**
+     * Password policy regarding password syntax.
+     */
+    PASSWORD("Password Policy"),
+    GLOBAL_PASSWORD("Password Global Policy"),
+    /**
+     * SYNC policy regarding account conflicts resolution.
+     */
+    SYNC("Synchronization Policy"),
+    GLOBAL_SYNC("Synchronization Global Policy");
 
-    private String name;
+    private String description;
 
-    public String getName() {
-        return name;
+    PolicyType(final String description) {
+        this.description = description;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public String getDescription() {
+        return description;
     }
-
 }

@@ -22,7 +22,7 @@
         http://www.springframework.org/schema/util/spring-util.xsd"
 >
 
-   <jaxrs:client id="restClient" address="http://localhost:9000/"
+   <jaxrs:client id="restClient" address="http://localhost:9001/"
    	serviceClass="demo.jaxrs.server.CustomerService">
       <jaxrs:providers>
          <ref bean="xmlProvider" />
@@ -32,14 +32,14 @@
 
    <bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
-   <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-      <property name="serializeAsArray" value="true" />
-      <property name="arrayKeys" ref="jsonKeys" />
-      <property name="dropRootElement" value="true" />
-      <property name="supportUnwrapped" value="true" />
-   </bean-->
+   <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+      <property name="serializeAsArray" value="false" />
+      <!-- property name="arrayKeys" ref="jsonKeys" /-->
+      <property name="dropRootElement" value="false" />
+      <property name="supportUnwrapped" value="false" />
+   </bean>
 
-   <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+   <!-- bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/-->
    
   <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
       <property name="jaxbElementClassNames">

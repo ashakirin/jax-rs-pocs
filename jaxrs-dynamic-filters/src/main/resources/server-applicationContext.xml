@@ -21,16 +21,25 @@
         http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util.xsd"
 >
-   <jaxrs:server id="restServer" address="http://localhost:9000/"
-   	serviceClass="demo.jaxrs.server.CustomerProxy">
+
+   <jaxrs:server id="restServer" address="http://localhost:9000/">
+		<jaxrs:inInterceptors>
+			<ref bean="filterControllerInterceptor" />
+		</jaxrs:inInterceptors>
+        <jaxrs:serviceBeans>
+            <ref bean="customerServiceEndpoint"/>
+        </jaxrs:serviceBeans>   	
       <jaxrs:providers>
          <ref bean="xmlProvider" />
          <ref bean="jsonProvider" />
       </jaxrs:providers>
    </jaxrs:server>
 
+   <bean id="customerServiceEndpoint" class="demo.jaxrs.server.CustomerServiceImpl"/>
+   <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+   <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerService" />
+
 	<bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
-		<!-- property name="collectionWrapperName" value="MyTasks"/-->
 		<property name="collectionWrapperMap">
 			<map>
 				<entry>
@@ -41,18 +50,13 @@
 		</property>
 	</bean>
 
-    <util:list id="jsonKeys">
-        <value>Policy</value>
-    </util:list>
-
-   <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-      <property name="serializeAsArray" value="false" />
+   <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+      <property name="serializeAsArray" value="true" />
       <property name="arrayKeys" ref="jsonKeys" />
-      <property name="dropRootElement" value="false" />
+      <property name="dropRootElement" value="true" />
       <property name="supportUnwrapped" value="true" />
-   </bean>
+   </bean-->
 
-   <!-- bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/-->
    
   <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
       <property name="jaxbElementClassNames">

@@ -37,8 +37,8 @@
 			</list>
 		</property-->
 		<property name="dropRootElement" value="false" />
-		<property name="supportUnwrapped" value="false" />
-		<!-- property name="wrapperName" value="cs.customer" /-->
+		<property name="supportUnwrapped" value="true" />
+		<property name="wrapperName" value="cs.customer" />
 	</bean>
 
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider"/>

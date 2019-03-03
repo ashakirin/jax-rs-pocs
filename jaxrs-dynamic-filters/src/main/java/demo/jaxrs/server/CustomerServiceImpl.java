@@ -23,55 +23,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
-import org.apache.cxf.jaxrs.ext.MessageContext;
-
-import demo.jaxrs.server.data.AbstractSchemaTO;
-import demo.jaxrs.server.data.AttributableType;
-import demo.jaxrs.server.data.DerivedSchemaTO;
-import demo.jaxrs.server.data.NotificationTaskTO;
-import demo.jaxrs.server.data.PasswordPolicyTO;
-import demo.jaxrs.server.data.PolicyTO;
-import demo.jaxrs.server.data.PolicyType;
-import demo.jaxrs.server.data.PropagationTaskTO;
-import demo.jaxrs.server.data.SchedTaskTO;
-import demo.jaxrs.server.data.SchemaTO;
-import demo.jaxrs.server.data.SchemaType;
-import demo.jaxrs.server.data.SyncPolicyTO;
-import demo.jaxrs.server.data.SyncTaskTO;
-import demo.jaxrs.server.data.TaskTO;
-import demo.jaxrs.server.data.TaskType;
-
-public class CustomerProxy implements CustomerService {
-	@Context
-	private MessageContext context;
-	
-	long currentId = 123;
+public class CustomerServiceImpl implements CustomerService {
+    long currentId = 123;
     Map<Long, Customer> customers = new HashMap<Long, Customer>();
     Map<Long, Order> orders = new HashMap<Long, Order>();
 
-    public CustomerProxy() {
+    public CustomerServiceImpl() {
         init();
     }
 
     @Override
     public Customer getCustomer(String id) {
-//    	System.out.println("Context property: " + context.get("TEST_CONTEXT_PROPERTY"));
-    	System.out.println("Request for id: " + id);
-    	Customer customer = new Customer();
-    	customer.setId(1);
-    	customer.setName("Test");
-    	return customer; 
-//        throw new BadRequestException();
-
-//        System.out.println("getCustomer");
-//        System.out.println("----invoking getCustomer, Customer id is: " + id);
-//        long idNumber = Long.parseLong(id);
-//        Customer c = customers.get(idNumber);
-//        return c;
+        System.out.println("----invoking getCustomer, Customer id is: " + id);
+        long idNumber = Long.parseLong(id);
+        Customer c = customers.get(idNumber);
+        return c;
     }
 
     @Override
@@ -90,14 +58,16 @@ public class CustomerProxy implements CustomerService {
     }
 
     @Override
-    public Customer addCustomer(Customer customer) {
+    public Response addCustomer(Customer customer) {
         System.out.println("----invoking addCustomer, Customer name is: " + customer.getName());
         customer.setId(++currentId);
+
         customers.put(customer.getId(), customer);
-        return customer;
+
+        return Response.ok(customer).build();
     }
 
-	@Override
+    @Override
     public Response deleteCustomer(String id) {
         System.out.println("----invoking deleteCustomer, Customer id is: " + id);
         long idNumber = Long.parseLong(id);
@@ -125,25 +95,22 @@ public class CustomerProxy implements CustomerService {
     @Override
     public List<? extends PolicyTO> listByType(final PolicyType type) {
 //  public List<PasswordPolicyTO> listByType(final PolicyType type) {
-    	System.out.println("Type: " + type);
 		List<PolicyTO> list = new ArrayList<PolicyTO>();
 //   	if (type == PolicyType.PASSWORD) {
-    		PasswordPolicyTO passwordPolicy = new PasswordPolicyTO(true);
+    		PasswordPolicyTO passwordPolicy = new PasswordPolicyTO();
     		passwordPolicy.setId(1);
-    		passwordPolicy.setSpecification("strongPasswordPolicy");
-    		System.out.println(passwordPolicy.getType());
+    		passwordPolicy.setSpecification("test");
     		list.add(passwordPolicy);
 //    	} else if (type == PolicyType.SYNC) {
-//    		SyncPolicyTO syncPolicy = new SyncPolicyTO();
-//    		syncPolicy.setId(2);
-//    		syncPolicy.setSpecification("weakPasswordPolicy");
-//    		list.add(syncPolicy);
+    		SyncPolicyTO syncPolicy = new SyncPolicyTO();
+    		syncPolicy.setId(1);
+    		syncPolicy.setSpecification("test");
+    		list.add(syncPolicy);
 //    	}
 		return list;
     }
     
-
-    @Override
+ 	@Override
 	public <T extends PolicyTO> T create(T policyTO) {
 		System.out.println(policyTO.getClass());
 		System.out.println(policyTO.getType());
@@ -182,65 +149,5 @@ public class CustomerProxy implements CustomerService {
 		list.add(passwordPolicy);
 		return list;
 	}
-
-	@Override
-	public List<? extends AbstractSchemaTO> listSchemas(
-			AttributableType kind,
-			SchemaType type) {
-    	System.out.println("Type: " + type);
-    	System.out.println("Kind: " + kind);
-		List<AbstractSchemaTO> list = new ArrayList<AbstractSchemaTO>();
-    		SchemaTO schemaTO = new SchemaTO();
-    		schemaTO.setType(SchemaType.Boolean);
-    		schemaTO.setName("schema");
-    		list.add(schemaTO);
-
-    		DerivedSchemaTO dSchemaTO = new DerivedSchemaTO();
-    		dSchemaTO.setName("dschema");
-    		list.add(dSchemaTO);
-		return list;
-	}
-
-	@Override
-	public <T extends TaskTO> List<T> listTasks(TaskType taskType) {
-		System.out.println(taskType);
-		List<TaskTO> list = new ArrayList<TaskTO>();
-		
-		NotificationTaskTO nTask = new NotificationTaskTO();
-		SyncTaskTO sTask = new SyncTaskTO();
-		SchedTaskTO schTask = new SchedTaskTO();
-		PropagationTaskTO pTask = new PropagationTaskTO();
-		
-		list.add(nTask);
-		list.add(sTask);
-		list.add(schTask);
-		list.add(pTask);
-		
-		return (List<T>) list;
-	}
-
-	@Override
-	public Customer activate(long userId, String token) {
-		System.out.println("Activate");
-		// TODO Auto-generated method stub
-		return new Customer();
-	}
-
-	@Override
-	public Customer activate(long userId, String token, SyncPolicyTO policyTO) {
-		// TODO Auto-generated method stub
-		System.out.println("Activate with policy");
-		return new Customer();
-	}
-
-//	@Override
-//	public <T extends TaskTO> List<T> listTasks(TaskType taskType,
-//			int page,
-//			int size) {
-//		// TODO Auto-generated method stub
-//		System.out.println(taskType);
-//		System.out.println(page + " - " + size);
-//		return null;
-//	}
 
 }

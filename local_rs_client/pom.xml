@@ -36,9 +36,9 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
-				<configuration>
+				<!--configuration>
 					<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
-				</configuration>
+				</configuration-->
 			</plugin>
 		</plugins>
     <finalName>local_rs_client</finalName>
@@ -54,6 +54,15 @@
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 			<version>2.7.8</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-extension-providers</artifactId>
+            <version>2.7.8</version>
+        </dependency>
+        <dependency>
+	   <groupId>org.codehaus.jettison</groupId>
+	   <artifactId>jettison</artifactId>
+	</dependency>
 		<dependency>
 			<groupId>org.apache.cxf.samples</groupId>
 			<artifactId>local_factory_common</artifactId>

@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one
   or more contributor license agreements. See the NOTICE file
@@ -18,20 +19,14 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.apache.cxf.samples</groupId>
-    <artifactId>jaxrs_json</artifactId>
-    <name>JAX-RS Basic Demo</name>
-    <description>JAX-RS Basic Demo</description>
-    <version>2.7.8</version>
-
-    <parent>
-        <groupId>org.apache.cxf.samples</groupId>
-        <artifactId>cxf-samples</artifactId>
-        <version>2.7.8</version>
-        <relativePath>..</relativePath>
-    </parent>
+    <groupId>org.apache.cxf</groupId>
+    <artifactId>jaxrs-dynamic-filters</artifactId>
+    <name>JAX-RS Dynamic Filters Demo</name>
+    <description>JAX-RS Dynamic Filters Demo</description>
+    <packaging>war</packaging>
+    <version>3.2.1</version>
     <properties>
-        <cxf.version>${project.version}</cxf.version>
+        <cxf.version>3.3.2-SNAPSHOT</cxf.version>
         <httpclient.version>3.1</httpclient.version>
     </properties>
     <build>
@@ -39,27 +34,9 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copyxmlfiles</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <copy file="${basedir}/src/main/java/demo/jaxrs/client/add_customer.xml" todir="${basedir}/target/classes/demo/jaxrs/client" />
-                                <copy file="${basedir}/src/main/java/demo/jaxrs/client/update_customer.xml" todir="${basedir}/target/classes/demo/jaxrs/client" />
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -114,73 +91,54 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-            <version>2.7.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-            <version>2.7.8</version>
+            <version>${cxf.version}</version>
         </dependency>
         <!-- This dependency is needed if you're using the Jetty container -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <version>2.7.8</version>
+            <version>${cxf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>2.7.8</version>
+            <version>${cxf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-ws-addr</artifactId>
-            <version>2.7.8</version>
+            <artifactId>cxf-rt-rs-client</artifactId>
+            <version>${cxf.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
-      <dependency>
-         <groupId>org.apache.cxf</groupId>
-         <artifactId>cxf-rt-rs-extension-providers</artifactId>
-            <version>2.7.8</version>
-      </dependency>
-      <dependency>
-         <groupId>org.apache.cxf</groupId>
-         <artifactId>cxf-rt-rs-extension-search</artifactId>
-            <version>2.7.8</version>
-      </dependency>
-      <dependency>
-         <groupId>org.codehaus.jettison</groupId>
-         <artifactId>jettison</artifactId>
-            <version>1.3.2</version>
-      </dependency>
-<dependency>
-	<groupId>asm</groupId>
-	<artifactId>asm-all</artifactId>
-	<version>2.2</version>
-</dependency>      
-      <!-- dependency>
-         <groupId>org.codehaus.jackson</groupId>
-         <artifactId>jackson-jaxrs</artifactId>
-         <version>1.9.11</version>
-      </dependency>
-      <dependency>
-         <groupId>org.codehaus.jackson</groupId>
-         <artifactId>jackson-xc</artifactId>
-         <version>1.9.11</version>
-      </dependency-->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
-      </dependency>
+            <version>4.1.9.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+            <version>1.9.0</version>
+        </dependency>
     </dependencies>
 </project>

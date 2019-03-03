@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
 import demo.jaxrs.client.CustomExceptionMapper;
 
@@ -34,7 +33,7 @@ public class Server {
         JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
         
         List<Object> providers = new ArrayList<Object>();
-        providers.add( new JacksonJaxbJsonProvider() );
+//        providers.add( new JacksonJaxbJsonProvider() );
         providers.add(new CustomExceptionMapper());
 
         sf.setProviders(providers);

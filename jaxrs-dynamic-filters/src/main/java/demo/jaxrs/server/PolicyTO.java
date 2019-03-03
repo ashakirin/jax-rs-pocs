@@ -16,28 +16,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package demo.jaxrs.server.data;
+package demo.jaxrs.server;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "abstractSchema")
-@XmlType
-@XmlSeeAlso({SchemaTO.class, DerivedSchemaTO.class, VirtualSchemaTO.class})
+@XmlRootElement(name = "Policy")
+@XmlSeeAlso({PasswordPolicyTO.class, SyncPolicyTO.class})
 //@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
-public abstract class AbstractSchemaTO extends AbstractBaseBean {
+public abstract class PolicyTO {
 
-    private static final long serialVersionUID = 4088388951694301759L;
+    private long id;
 
-    private String name;
+    private String description;
 
-    public String getName() {
-        return name;
+    protected PolicyType type;
+
+    public long getId() {
+        return id;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setId(long id) {
+        this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public PolicyType getType() {
+        return type;
+    }
 }

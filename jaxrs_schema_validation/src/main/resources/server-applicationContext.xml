@@ -37,7 +37,7 @@
 				<value>address</value>
 			</list>
 		</property-->
-		<property name="dropRootElement" value="false" />
+		<property name="dropRootElement" value="true" />
 		<property name="supportUnwrapped" value="false" />
 		<!-- property name="wrapperName" value="cs.customer" /-->
 		<!-- property name="schemaHandler" ref="schemaHolder" /-->

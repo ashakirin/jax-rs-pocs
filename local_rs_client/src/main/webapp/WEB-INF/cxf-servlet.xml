@@ -63,15 +63,15 @@
 		<!-- property name="httpCustomerService" ref="httpCustomerService"></property-->
 	</bean>
 
-	<bean id="startServiceBean" class="com.example.service.StartService">
+	<!-- bean id="startServiceBean" class="com.example.service.StartService">
 		<property name="localCustomerService" ref="localCustomerService"></property>
-		<!-- property name="httpCustomerService" ref="httpCustomerService"></property-->
-	</bean>
+		<property name="httpCustomerService" ref="httpCustomerService"></property>
+	</bean-->
 
-	<jaxrs:server id="startService" address="/">
+	<!-- jaxrs:server id="startService" address="/">
         <jaxrs:serviceBeans>
            <ref bean="startServiceBean"/>
         </jaxrs:serviceBeans>		
-	</jaxrs:server>
+	</jaxrs:server-->
 
 </beans>
