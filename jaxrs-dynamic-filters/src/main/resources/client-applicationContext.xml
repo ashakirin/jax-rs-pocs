@@ -32,13 +32,19 @@
 		<jaxrs:providers>
 			<ref bean="xmlProvider" />
 			<ref bean="jsonProvider" />
+			<ref bean="resourceExtracterClientFilter" />
 			<!-- ref bean="testClientRequestFilter" / -->
 		</jaxrs:providers>
+
+		<jaxrs:properties>
+			<entry key="service.id" value="CustomerService"/>
+		</jaxrs:properties>
 	</jaxrs:client>
 
    <bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
    <bean id="testClientRequestFilter" class="demo.jaxrs.filters.TestClientRequestFilter" />
    <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerClient" />
+   <bean id="resourceExtracterClientFilter" class="demo.jaxrs.filters.ResourceExtracterClientFilter" />
 
    <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
       <property name="serializeAsArray" value="true" />

@@ -32,12 +32,18 @@
       <jaxrs:providers>
          <ref bean="xmlProvider" />
          <ref bean="jsonProvider" />
+         <ref bean="resourceExtracterContainerFilter" />
       </jaxrs:providers>
+       <jaxrs:properties>
+           <entry key="service.id" value="CustomerService"/>
+       </jaxrs:properties>
    </jaxrs:server>
 
    <bean id="customerServiceEndpoint" class="demo.jaxrs.server.CustomerServiceImpl"/>
    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
    <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerService" />
+   <bean id="resourceExtracterContainerFilter" class="demo.jaxrs.filters.ResourceExtracterContainerFilter" />
+   
 
 	<bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
 		<property name="collectionWrapperMap">
