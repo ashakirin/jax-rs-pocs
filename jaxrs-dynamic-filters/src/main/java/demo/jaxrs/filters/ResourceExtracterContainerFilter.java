@@ -29,7 +29,7 @@ public class ResourceExtracterContainerFilter implements ContainerRequestFilter 
             System.out.println("Class: " + resourceClass.getName());
             System.out.println("Method: " + resourceClassInfo.getAnnotatedMethod().getName());
             System.out.println("Resource annotation: " + resourceClass.getAnnotation(ResourceIdentifier.class).value());
-            System.out.println("JAX-RS property: " + message.getContextualProperty("service.id"));
+            System.out.println("JAX-RS property: " + message.getContextualProperty("service.provider.id"));
             System.out.println(" **************************************");
 
         }

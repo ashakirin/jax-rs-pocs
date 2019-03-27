@@ -35,7 +35,7 @@
          <ref bean="resourceExtracterContainerFilter" />
       </jaxrs:providers>
        <jaxrs:properties>
-           <entry key="service.id" value="CustomerService"/>
+           <entry key="service.provider.id" value="CustomerServiceProvider"/>
        </jaxrs:properties>
    </jaxrs:server>
 
