@@ -22,7 +22,7 @@
         http://www.springframework.org/schema/util/spring-util.xsd"
 >
 
-   <jaxrs:server id="restServer" address="http://localhost:9000/">
+   <jaxrs:server id="restServer" address="udp://localhost:9000/">
 		<jaxrs:inInterceptors>
 			<ref bean="filterControllerInterceptor" />
 		</jaxrs:inInterceptors>
@@ -43,7 +43,7 @@
    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
    <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerService" />
    <bean id="resourceExtracterContainerFilter" class="demo.jaxrs.filters.ResourceExtracterContainerFilter" />
-   
+
 
 	<bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
 		<property name="collectionWrapperMap">

@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
+@ResourceIdentifier("CustomerServiceResourceImpl")
 public class CustomerServiceImpl implements CustomerService {
     long currentId = 123;
     Map<Long, Customer> customers = new HashMap<Long, Customer>();

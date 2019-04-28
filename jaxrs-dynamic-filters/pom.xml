@@ -26,7 +26,7 @@
     <packaging>war</packaging>
     <version>3.2.1</version>
     <properties>
-        <cxf.version>3.3.2-SNAPSHOT</cxf.version>
+        <cxf.version>3.3.1</cxf.version>
         <httpclient.version>3.1</httpclient.version>
     </properties>
     <build>
@@ -102,6 +102,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
+            <artifactId>org.apache.cxf.transport.udp</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
         </dependency>
@@ -145,5 +150,10 @@
 		<artifactId>slf4j-jdk14</artifactId>
 		<version>1.7.7</version>
 	</dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-udp</artifactId>
+            <version>3.1.8</version>
+        </dependency>
     </dependencies>
 </project>

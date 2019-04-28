@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 @ResourceIdentifier("CustomerServiceResource")
 @Consumes({"application/json"})
 @Produces({"application/json"})
+@Path("/")
 public interface CustomerService {
 	    @GET
 	    @Path("customers/{id}/")

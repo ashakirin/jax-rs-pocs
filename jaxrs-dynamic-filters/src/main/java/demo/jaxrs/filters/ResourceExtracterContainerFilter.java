@@ -30,6 +30,9 @@ public class ResourceExtracterContainerFilter implements ContainerRequestFilter 
             System.out.println("Method: " + resourceClassInfo.getAnnotatedMethod().getName());
             System.out.println("Resource annotation: " + resourceClass.getAnnotation(ResourceIdentifier.class).value());
             System.out.println("JAX-RS property: " + message.getContextualProperty("service.provider.id"));
+            Class<?> implementationClass = resourceClassInfo.getClassResourceInfo().getResourceClass();
+            System.out.println("Implementation class: " + implementationClass);
+            System.out.println("Implementation annotation: " + implementationClass.getAnnotation(ResourceIdentifier.class).value());
             System.out.println(" **************************************");
 
         }

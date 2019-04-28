@@ -10,58 +10,64 @@
    OF ANY KIND, either express or implied. See the License for the specific 
    language governing permissions and limitations under the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs-client" xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:sec="http://cxf.apache.org/configuration/security"
-	xsi:schemaLocation="
-	   http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd         
-	   http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs-client"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+
 	   http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd
-	   http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+
 	   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
 
-	<jaxrs:client id="restClient"
-		address="http://localhost:9000/"
-		serviceClass="demo.jaxrs.server.CustomerService">
-		
-		<jaxrs:outInterceptors>
-			<ref bean="filterControllerInterceptor" />
-		</jaxrs:outInterceptors>
+    <jaxrs:client id="restClient"
+                  address="udp://localhost:9000/"
+                  serviceClass="demo.jaxrs.server.CustomerService">
 
-		<jaxrs:providers>
-			<ref bean="xmlProvider" />
-			<ref bean="jsonProvider" />
-			<ref bean="resourceExtracterClientFilter" />
-			<!-- ref bean="testClientRequestFilter" / -->
-		</jaxrs:providers>
+    <!--jaxrs:client id="restClient"
+                  address="http://localhost:9000/"
+                  serviceClass="demo.jaxrs.server.CustomerService"-->
 
-		<jaxrs:properties>
-			<entry key="service.id" value="CustomerService"/>
-		</jaxrs:properties>
-	</jaxrs:client>
+        <jaxrs:outInterceptors>
+            <ref bean="filterControllerInterceptor"/>
+            <ref bean="udpTransportClientInterceptor"/>
+        </jaxrs:outInterceptors>
 
-   <bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
-   <bean id="testClientRequestFilter" class="demo.jaxrs.filters.TestClientRequestFilter" />
-   <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerClient" />
-   <bean id="resourceExtracterClientFilter" class="demo.jaxrs.filters.ResourceExtracterClientFilter" />
+        <jaxrs:providers>
+            <ref bean="xmlProvider"/>
+            <ref bean="jsonProvider"/>
+            <ref bean="resourceExtracterClientFilter"/>
+            <!-- ref bean="testClientRequestFilter" / -->
+        </jaxrs:providers>
 
-   <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-      <property name="serializeAsArray" value="true" />
-      <property name="arrayKeys" ref="jsonKeys" />
-      <property name="dropRootElement" value="true" />
-      <property name="supportUnwrapped" value="true" />
-   </bean-->
+        <jaxrs:properties>
+            <entry key="service.id" value="CustomerService"/>
+        </jaxrs:properties>
+    </jaxrs:client>
 
-   <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
-   
-  <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-      <property name="jaxbElementClassNames">
-         <list>
-           <value>demo.jaxrs.server.data.PolicyTO</value>
-           <value>demo.jaxrs.server.data.AbstractSchemaTO</value>
-         </list>
-      </property>
-  </bean-->
+    <bean id="xmlProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider"/>
+    <bean id="testClientRequestFilter" class="demo.jaxrs.filters.TestClientRequestFilter"/>
+    <bean id="filterControllerInterceptor" class="demo.jaxrs.filters.DynamicFilterControllerClient"/>
+    <bean id="resourceExtracterClientFilter" class="demo.jaxrs.filters.ResourceExtracterClientFilter"/>
+    <bean id="udpTransportClientInterceptor" class="demo.jaxrs.filters.UDPTransportClientInterceptor"/>
+
+
+    <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+       <property name="serializeAsArray" value="true" />
+       <property name="arrayKeys" ref="jsonKeys" />
+       <property name="dropRootElement" value="true" />
+       <property name="supportUnwrapped" value="true" />
+    </bean-->
+
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+
+    <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        <property name="jaxbElementClassNames">
+           <list>
+             <value>demo.jaxrs.server.data.PolicyTO</value>
+             <value>demo.jaxrs.server.data.AbstractSchemaTO</value>
+           </list>
+        </property>
+    </bean-->
 
 </beans>
